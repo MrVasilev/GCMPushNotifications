@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PushNotifications</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome_txt">GCM App</string>
+    <string name="email_hint">Email Address</string>
+    <string name="register_label">Register Me</string>
+    <string name="default_message">Message sent by server will appear here.</string>
+    <string name="message_label">Message</string>
+    <string name="hello_label">Hello</string>
+    <string name="title_activity_result">ResultActivity</string>
+    <string name="please_wait_message">Please wait...</string>
+    <string name="not_valid_email_message">Please enter valid email</string>
+    <string name="not_available_gps">Google Play Services NOT available!</string>
+
+</resources>

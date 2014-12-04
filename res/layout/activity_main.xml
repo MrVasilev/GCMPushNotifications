@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gradient_start"
+    tools:context="com.example.pushnotifications.MainActivity" >
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
+        android:padding="10dp" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@color/bg_button_login"
+        android:onClick="onRegisterClick"
+        android:padding="10dp"
+        android:text="@string/register_label"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/emailEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:text="@string/welcome_txt"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+</RelativeLayout>

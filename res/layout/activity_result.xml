@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gradient_start"
+    tools:context="com.example.pushnotifications.ResultActivity" >
+
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/hello_label"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/welcomeTextView"
+        android:layout_margin="30dp"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/messageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:gravity="top|center_horizontal"
+            android:hint="@string/default_message"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+</RelativeLayout>
