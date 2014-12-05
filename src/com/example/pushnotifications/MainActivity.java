@@ -1,16 +1,8 @@
 package com.example.pushnotifications;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.http.Header;
-
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -22,6 +14,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class MainActivity extends Activity {
 
@@ -124,8 +121,8 @@ public class MainActivity extends Activity {
 
 				progressDialog.dismiss();
 
-				Toast.makeText(getApplicationContext(), "Registration Id shared successfully with Web App",
-						Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.web_app_success_message), Toast.LENGTH_LONG)
+						.show();
 
 				openResultScreen();
 			}
@@ -139,20 +136,19 @@ public class MainActivity extends Activity {
 
 				// When Http response code is '404'
 				if (statusCode == 404) {
-					Toast.makeText(getApplicationContext(), "Requested resource not found" + error.getMessage(),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.web_app_not_found_error) + error.getMessage(), Toast.LENGTH_LONG).show();
 				}
 				// When Http response code is '500'
 				else if (statusCode == 500) {
-					Toast.makeText(getApplicationContext(), "Something went wrong at server end" + error.getMessage(),
+					Toast.makeText(getApplicationContext(), getString(R.string.web_app_500_error) + error.getMessage(),
 							Toast.LENGTH_LONG).show();
 				}
 				// When Http response code other than 404, 500
 				else {
-					Toast.makeText(
-							getApplicationContext(),
-							"Unexpected Error occcured! Device might not be connected to Internet or remote server is not up and running!"
-									+ error.getMessage(), Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.web_app_unexpected_error) + error.getMessage(), Toast.LENGTH_LONG)
+							.show();
 				}
 			}
 		});
@@ -191,12 +187,12 @@ public class MainActivity extends Activity {
 
 				storeRegistrationIdInSharedPref(registrationId, email);
 
-				Toast.makeText(getApplicationContext(), "Registered with GCM Server successfully.\n" + result,
-						Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.success_registration_message) + "\n" + result, Toast.LENGTH_LONG).show();
 			} else {
 
-				Toast.makeText(getApplicationContext(), "Registration ID Creation Failed.\n" + result,
-						Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.failed_registration_message) + "\n" + result, Toast.LENGTH_LONG).show();
 			}
 		}
 	}

@@ -561,6 +561,7 @@ containing a value of this type.
         public static final int decline=0x7f050003;
         public static final int default_message=0x7f050029;
         public static final int email_hint=0x7f050027;
+        public static final int failed_registration_message=0x7f050031;
         public static final int hello_label=0x7f05002b;
         public static final int hello_world=0x7f050024;
         public static final int message_label=0x7f05002a;
@@ -570,11 +571,16 @@ containing a value of this type.
         public static final int register_label=0x7f050028;
         public static final int store_picture_message=0x7f050001;
         public static final int store_picture_title=0x7f050000;
+        public static final int success_registration_message=0x7f050030;
         public static final int title_activity_result=0x7f05002c;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
         public static final int wallet_buy_button_place_holder=0x7f050022;
+        public static final int web_app_500_error=0x7f050033;
+        public static final int web_app_not_found_error=0x7f050034;
+        public static final int web_app_success_message=0x7f050035;
+        public static final int web_app_unexpected_error=0x7f050032;
         public static final int welcome_txt=0x7f050026;
     }
     public static final class style {
