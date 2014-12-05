@@ -23,7 +23,7 @@ public class GCMNotificationIntentService extends IntentService {
 		GoogleCloudMessaging googleCloudMessaging = GoogleCloudMessaging.getInstance(this);
 		String messageType = googleCloudMessaging.getMessageType(intent);
 
-		if (!extras.isEmpty()) {
+		if (!extras.isEmpty() && messageType != null) {
 
 			switch (messageType) {
 
@@ -65,14 +65,15 @@ public class GCMNotificationIntentService extends IntentService {
 
 			Intent intent = new Intent(this, ResultActivity.class);
 			intent.putExtra(Constants.KEY_MESSAGE, message);
-			PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+			PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
 			NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 			NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
 			builder.setContentTitle("Message").setContentText("You've received a new message from Server!")
-					.setSmallIcon(R.drawable.ic_launcher).setContentIntent(pendingIntent);
+					.setSmallIcon(R.drawable.ic_launcher).setAutoCancel(true).setContentIntent(pendingIntent);
 
 			notificationManager.notify(1, builder.build());
 		}

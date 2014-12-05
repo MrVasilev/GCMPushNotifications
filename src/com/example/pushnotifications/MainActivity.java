@@ -2,10 +2,7 @@ package com.example.pushnotifications;
 
 import java.io.IOException;
 
-import org.apache.http.Header;
-
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -15,10 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.pushnotifications.ServerAPI.SuccessListener;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 public class MainActivity extends Activity {
 
@@ -27,8 +22,6 @@ public class MainActivity extends Activity {
 	private SharedPreferences sharedPreferences;
 
 	private String registrationId;
-
-	private ProgressDialog progressDialog;
 
 	private boolean isGooglePlayServicesAvailable;
 
@@ -39,12 +32,9 @@ public class MainActivity extends Activity {
 
 		emailEditText = (EditText) findViewById(R.id.emailEditText);
 
-		progressDialog = new ProgressDialog(this);
-		progressDialog.setTitle(getString(R.string.please_wait_message));
-
 		sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_NAME, MODE_PRIVATE);
 
-		registrationId = sharedPreferences.getString(Constants.REGISTRATION_ID, "");
+		registrationId = sharedPreferences.getString(Constants.KEY_REGISTRATION_ID, "");
 
 		if (!TextUtils.isEmpty(registrationId)) {
 
@@ -85,7 +75,7 @@ public class MainActivity extends Activity {
 	private void openResultScreen() {
 
 		Intent intent = new Intent(this, ResultActivity.class);
-		intent.putExtra(Constants.REGISTRATION_ID, registrationId);
+		intent.putExtra(Constants.KEY_REGISTRATION_ID, registrationId);
 		startActivity(intent);
 		finish();
 	}
@@ -94,7 +84,7 @@ public class MainActivity extends Activity {
 
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 
-		editor.putString(Constants.REGISTRATION_ID, registrationId);
+		editor.putString(Constants.KEY_REGISTRATION_ID, registrationId);
 		editor.putString(Constants.KEY_EMAIL, email);
 		editor.commit();
 
@@ -103,55 +93,17 @@ public class MainActivity extends Activity {
 
 	private void storeRegistrationIdInServer() {
 
-		progressDialog.show();
+		ServerAPI serverAPI = ServerAPI.getInstance(this);
 
-		AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-		RequestParams requestParams = new RequestParams();
+		serverAPI.setMethod(Constants.METHOD_JUST_REGISTER).setRegId(registrationId)
+				.addOnSuccess(new SuccessListener() {
 
-		requestParams.put(Constants.REGISTRATION_ID, registrationId);
+					@Override
+					public void onSuccess() {
 
-		asyncHttpClient.setTimeout(10000);
-
-		asyncHttpClient.post(Constants.APP_SERVER_URL, requestParams, new AsyncHttpResponseHandler() {
-
-			@Override
-			@Deprecated
-			public void onSuccess(int statusCode, Header[] headers, String content) {
-				super.onSuccess(statusCode, headers, content);
-
-				progressDialog.dismiss();
-
-				Toast.makeText(getApplicationContext(), getString(R.string.web_app_success_message), Toast.LENGTH_LONG)
-						.show();
-
-				openResultScreen();
-			}
-
-			@Override
-			@Deprecated
-			public void onFailure(int statusCode, Header[] headers, Throwable error, String content) {
-				super.onFailure(statusCode, headers, error, content);
-
-				progressDialog.dismiss();
-
-				// When Http response code is '404'
-				if (statusCode == 404) {
-					Toast.makeText(getApplicationContext(),
-							getString(R.string.web_app_not_found_error) + error.getMessage(), Toast.LENGTH_LONG).show();
-				}
-				// When Http response code is '500'
-				else if (statusCode == 500) {
-					Toast.makeText(getApplicationContext(), getString(R.string.web_app_500_error) + error.getMessage(),
-							Toast.LENGTH_LONG).show();
-				}
-				// When Http response code other than 404, 500
-				else {
-					Toast.makeText(getApplicationContext(),
-							getString(R.string.web_app_unexpected_error) + error.getMessage(), Toast.LENGTH_LONG)
-							.show();
-				}
-			}
-		});
+						openResultScreen();
+					}
+				}).execute();
 	}
 
 	private class RegisterUserTask extends AsyncTask<String, Void, String> {
