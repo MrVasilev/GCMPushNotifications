@@ -414,44 +414,48 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020020;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0019;
+        public static final int action_settings=0x7f0a001b;
         public static final int book_now=0x7f0a000e;
         public static final int buyButton=0x7f0a000a;
         public static final int buy_now=0x7f0a000f;
         public static final int buy_with_google=0x7f0a0010;
         public static final int classic=0x7f0a0011;
-        public static final int emailEditText=0x7f0a0014;
+        public static final int emailEditText=0x7f0a0016;
         public static final int grayscale=0x7f0a0012;
+        public static final int greetImageView=0x7f0a0014;
         public static final int holo_dark=0x7f0a0005;
         public static final int holo_light=0x7f0a0006;
         public static final int hybrid=0x7f0a0000;
         public static final int match_parent=0x7f0a000c;
-        public static final int messageTextView=0x7f0a0018;
+        public static final int messageTextView=0x7f0a0015;
         public static final int monochrome=0x7f0a0013;
         public static final int none=0x7f0a0001;
         public static final int normal=0x7f0a0002;
         public static final int production=0x7f0a0007;
-        public static final int registerButton=0x7f0a0015;
+        public static final int registerButton=0x7f0a0017;
         public static final int sandbox=0x7f0a0008;
         public static final int satellite=0x7f0a0003;
+        public static final int saveUserCheckBox=0x7f0a0019;
         public static final int selectionDetails=0x7f0a000b;
         public static final int strict_sandbox=0x7f0a0009;
         public static final int terrain=0x7f0a0004;
-        public static final int textView1=0x7f0a0016;
-        public static final int welcomeTextView=0x7f0a0017;
+        public static final int textView1=0x7f0a0018;
+        public static final int welcomeTextView=0x7f0a001a;
         public static final int wrap_content=0x7f0a000d;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int activity_result=0x7f030001;
+        public static final int activity_greeting=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int activity_result=0x7f030002;
     }
     public static final class menu {
-        public static final int home_screen=0x7f090000;
-        public static final int main=0x7f090001;
-        public static final int result=0x7f090002;
+        public static final int greeting=0x7f090000;
+        public static final int home_screen=0x7f090001;
+        public static final int main=0x7f090002;
+        public static final int result=0x7f090003;
     }
     public static final class string {
         public static final int accept=0x7f050002;
@@ -569,9 +573,11 @@ containing a value of this type.
         public static final int not_valid_email_message=0x7f05002e;
         public static final int please_wait_message=0x7f05002d;
         public static final int register_label=0x7f050028;
+        public static final int save_user_check_box_label=0x7f050036;
         public static final int store_picture_message=0x7f050001;
         public static final int store_picture_title=0x7f050000;
         public static final int success_registration_message=0x7f050030;
+        public static final int title_activity_greeting=0x7f050037;
         public static final int title_activity_result=0x7f05002c;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 

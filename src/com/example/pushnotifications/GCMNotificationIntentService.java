@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
@@ -41,7 +42,7 @@ public class GCMNotificationIntentService extends IntentService {
 
 			case GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE:
 
-				message = "Message received from Google GCM Server : \n\n" + extras.getString(Constants.KEY_MESSAGE);
+				message = extras.getString(Constants.KEY_MESSAGE);
 
 				break;
 
@@ -63,7 +64,17 @@ public class GCMNotificationIntentService extends IntentService {
 
 		if (message != null) {
 
-			Intent intent = new Intent(this, ResultActivity.class);
+			Intent intent;
+
+			SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_NAME, MODE_PRIVATE);
+			boolean isUserSaved = sharedPreferences.getBoolean(Constants.KEY_USER_SAVE_IN_DB, false);
+
+			if (isUserSaved) {
+				intent = new Intent(this, GreetingActivity.class);
+			} else {
+				intent = new Intent(this, ResultActivity.class);
+			}
+
 			intent.putExtra(Constants.KEY_MESSAGE, message);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);

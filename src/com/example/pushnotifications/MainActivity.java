@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,8 +19,10 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 public class MainActivity extends Activity {
 
 	private EditText emailEditText;
+	private CheckBox saveUserCheckBox;
 
 	private SharedPreferences sharedPreferences;
+	private SharedPreferences.Editor editor;
 
 	private String registrationId;
 
@@ -31,8 +34,10 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		emailEditText = (EditText) findViewById(R.id.emailEditText);
+		saveUserCheckBox = (CheckBox) findViewById(R.id.saveUserCheckBox);
 
 		sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_NAME, MODE_PRIVATE);
+		editor = sharedPreferences.edit();
 
 		registrationId = sharedPreferences.getString(Constants.KEY_REGISTRATION_ID, "");
 
@@ -82,28 +87,44 @@ public class MainActivity extends Activity {
 
 	private void storeRegistrationIdInSharedPref(String registrationId, String email) {
 
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-
 		editor.putString(Constants.KEY_REGISTRATION_ID, registrationId);
 		editor.putString(Constants.KEY_EMAIL, email);
 		editor.commit();
 
-		storeRegistrationIdInServer();
+		storeRegistrationIdInServer(registrationId, email);
 	}
 
-	private void storeRegistrationIdInServer() {
+	private void storeRegistrationIdInServer(String registrationId, String email) {
+
+		editor.putBoolean(Constants.KEY_USER_SAVE_IN_DB, saveUserCheckBox.isChecked());
+		editor.commit();
 
 		ServerAPI serverAPI = ServerAPI.getInstance(this);
 
-		serverAPI.setMethod(Constants.METHOD_JUST_REGISTER).setRegId(registrationId)
-				.addOnSuccess(new SuccessListener() {
+		if (saveUserCheckBox.isChecked()) {
 
-					@Override
-					public void onSuccess() {
+			serverAPI.setMethod(Constants.METHOD_INSERT_USER).setRegId(registrationId).setEmail(email)
+					.addOnSuccess(new SuccessListener() {
 
-						openResultScreen();
-					}
-				}).execute();
+						@Override
+						public void onSuccess() {
+
+							openResultScreen();
+						}
+					}).execute();
+
+		} else {
+
+			serverAPI.setMethod(Constants.METHOD_JUST_REGISTER).setRegId(registrationId)
+					.addOnSuccess(new SuccessListener() {
+
+						@Override
+						public void onSuccess() {
+
+							openResultScreen();
+						}
+					}).execute();
+		}
 	}
 
 	private class RegisterUserTask extends AsyncTask<String, Void, String> {

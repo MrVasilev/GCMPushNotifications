@@ -20,5 +20,7 @@
     <string name="web_app_500_error">Something went wrong at server end</string>
     <string name="web_app_not_found_error">Requested resource not found</string>
     <string name="web_app_success_message">Registration Id shared successfully with Web App</string>
+    <string name="save_user_check_box_label">Save user in Database</string>
+    <string name="title_activity_greeting">GreetingActivity</string>
 
 </resources>
